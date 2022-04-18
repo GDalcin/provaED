@@ -1,0 +1,153 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <iostream>
+#include <string>
+#include <cstdlib>
+
+using namespace std;
+
+
+//struct utilizado tanto pra pilha quanto pra lista
+typedef struct no {
+  int dado;
+  struct no *prox;
+} Celula;
+
+//mostra os valores ordenados, do menor ao maior
+void exibirLista(Celula *lista) {
+  Celula *p;
+  for (p = lista; p; p = p->prox) {
+    cout << p->dado << endl;
+  }
+}
+
+
+//inserir na lista de forma ordenada tendo como c
+Celula *inserirLista(int valor, Celula *lista) {
+  //alocar memoria
+  Celula *novo = (Celula*)malloc(sizeof(Celula));
+	
+Celula *popular(Celula *lista, int qtdNumerosLista) {
+    srand(time(NULL));
+    int i;
+    for (i = 0; i < qtdNumerosLista; i++ ) {
+        lista = inserir((30 + rand() % 300), lista);
+    }
+    return lista;
+}
+
+  //depositar valores
+  novo->dado = valor;
+  novo->prox = NULL;
+
+  //percorrer para encontrar o local adequado na lista
+  //testar se é a primeira vez
+  if (!lista) return novo;
+
+  Celula *p, *pR;
+  for (pR = NULL, p = lista; p; pR = p, p = p->prox) {
+    if (valor < p->dado) break;
+  }
+
+  //é o primeiro
+  if (p == lista) {
+    novo->prox = lista;
+    return novo;
+  }
+  //é o último
+  if (!p) {
+    pR->prox = novo;
+  } else { //está no meio de duas celulas
+    pR->prox = novo;
+    novo->prox = p;
+  }
+  //retorna o inicio da lista
+  return lista;  
+}
+
+//metodo que receba um valor, o localiza na lista e o remove da estrutura
+Celula *excluirLista(int valor, Celula *lista) {
+  Celula *p, *pR;
+
+  if (!lista) {
+    cout << "Lista vazia. Operação cancelada!" << endl;
+    return lista;
+  }
+
+  for (pR = NULL, p = lista; p; pR = p, p = p->prox) {
+    if (valor == p->dado) {
+      //eh o primeiro
+      if (p == lista) {
+        lista = lista->prox;
+      } else if (!p->prox) { //eh o ultimo
+        pR->prox = NULL;
+      } else { //esta entre celulas
+        pR->prox = p->prox;
+      }
+      free(p);
+      return lista;
+    }
+  }
+  cout << "Valor não localizado para exclusão!" << endl;
+  return lista;
+}
+
+Celula *excluirOcorrenciasLista(int valor, Celula *lista) {
+  Celula *p, *pR;
+
+  if (!lista) {
+    cout << "Lista vazia. Operação cancelada!" << endl;
+    return lista;
+  }
+
+  bool houveExclusao;
+  do {
+    houveExclusao = false;
+    for (pR = NULL, p = lista; p; pR = p, p = p->prox) {
+      if (valor == p->dado) {
+        //eh o primeiro
+        if (p == lista) {
+          lista = lista->prox;
+        } else if (!p->prox) { //eh o ultimo
+          pR->prox = NULL;
+        } else { //esta entre celulas
+          pR->prox = p->prox;
+        }
+        free(p);
+        houveExclusao = true;
+        
+        break;
+      }
+    }   
+  } while (houveExclusao);
+  //Questão 2
+  	printf("Foram excluidos: %d números", 30 - contador);
+  return lista;
+}
+
+//metodo que recebe uma lista e retorna a quantidade de elementos
+int contarElementos(Celula *lista) {
+  int contador = 0;
+  Celula *p;
+  for (p = lista; p ; p = p->prox) {
+    contador++;
+  }
+  return contador;
+}
+
+Celula *juntarlistas(Celula *lista1, Celula *lista2) {
+    Celula *listaResultado = NULL;
+    Celula *p; 
+
+    for (p = lista1; p ; p = p->prox) {
+        listaJunta = inserir(p->conteudo,listaJunta);
+    }
+
+    for (p = lista2; p ; p = p->prox) {
+        listaJunta = inserir(p->conteudo,listaJunta);
+    }
+
+    return listaJunta;
+}
+
+}
