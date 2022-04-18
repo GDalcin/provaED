@@ -36,11 +36,11 @@ int main() {
   
   cout << "Lista após exclusão" << endl;
   exibirLista(lista);
- //3
+ //Questão 3
   lista2 = popular(lista2, qtdNumerosLista);
   cout << "Lista secundária" << endl;
   exibirLista(lista2);
-  //4
+  //Questão 4
   lista3 = juntarlistas(lista1, lista2);
   cout << "Lista junta" << endl;
   exibirLista(listaJunta);
