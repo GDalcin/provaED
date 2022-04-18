@@ -1,0 +1,49 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <locale.h>
+#include <iostream>
+#include <ctime>
+#include "Untitled3.c"
+
+using namespace std;
+
+Celula *popular(Celula *lista, int n) {
+  srand(time(NULL));
+  
+  for (int i = 0; i < n; i++) {
+    lista = inserirLista(rand() % 100, lista);
+  }
+  return lista;
+}
+
+int main() {
+  int qtdNumerosLista = 30;
+  Celula *lista = NULL;
+  Celula *lista2 = NULL;
+  Celula *lista3 = NULL;
+  lista = popular(lista, qtdNumerosLista);
+  cout << "Lista inicial" << endl;
+  exibirLista(lista);
+  
+  
+  int numero;
+  cout << "Qual o número que você deseja apagar da lista? ";
+  cin >> numero;
+
+  //lista = excluirLista(numero, lista);
+  
+  lista = excluirOcorrenciasLista(numero, lista);
+  
+  cout << "Lista após exclusão" << endl;
+  exibirLista(lista);
+ //3
+  lista2 = popular(lista2, qtdNumerosLista);
+  cout << "Lista secundária" << endl;
+  exibirLista(lista2);
+  //4
+  lista3 = juntarlistas(lista1, lista2);
+  cout << "Lista junta" << endl;
+  exibirLista(listaJunta);
+  
+  return 1;
+}
