@@ -1,0 +1,117 @@
+Arvore *inserir(int valor, Arvore *raiz) {
+	srand (time(NULL));
+	valor = rand() % 100;
+    if (raiz) {
+        if (valor < raiz->valor) { //avançar ou empilhar para a esquerda
+            raiz->esq = inserir(valor, raiz->esq);
+        } else { //avançar ou empilhar para a direita
+            raiz->dir = inserir(valor, raiz->dir);
+        }
+        raiz->fb = calcularAltura(raiz->esq) - calcularAltura(raiz->dir);
+
+        //descobrir se esta ou nao balanceado
+        if (raiz->fb == -2) { //rotacao para esquerda
+            //descobrir se eh rotacao simples
+            if (raiz->fb < 0 && raiz->dir->fb < 0) {
+                raiz = rodaEsquerda(raiz);
+            } else {
+                //rotacao dupla
+                //1 - rodar o filho para direita
+                raiz->dir = rodaDireita(raiz->dir);
+                //2 - rodar o pai para a esquerda
+                raiz = rodaEsquerda(raiz);
+            }
+            //atualizar o fb dos nodos da raiz
+            atualizarFB(raiz);
+        } else if (raiz->fb == 2) { //rotacao para direita
+            //descobrir se eh rotacao simples
+            if (raiz->fb > 0 && raiz->esq->fb > 0) {
+                raiz = rodaDireita(raiz);
+            } else {
+                //rotacao dupla
+                //1 - rodar o filho para esquerda
+                raiz->esq = rodaEsquerda(raiz->esq);
+                //2 - rodar o pai para a direita
+                raiz = rodaDireita(raiz);
+            }
+            //atualizar o fb dos nodos da raiz
+            atualizarFB(raiz);
+        }
+        return raiz;
+    } else {
+        //se estamos aqui, pq chegamos em um folha e estamos prontos para adicionar o nodo na árvore
+        Arvore *novo = (Arvore*)malloc(sizeof(Arvore));
+        novo->esq = NULL;
+        novo->dir = NULL;
+        novo->valor = valor;    
+        novo->fb = 0; //todo nodo inserido, o fb é 0    
+        return novo;
+        
+		cout << "Menor valor: " << menorElemento(raiz)->valor << endl;
+    	cout << "Maior valor: " << maiorElemento(raiz)->valor << endl;
+    
+	
+	int localizarNivelMaior(int maiorElemento, Arvore *raiz) {
+     if (raiz) {
+        if (nivelMaior == raiz->maiorElemento) return 0;
+        if (nivelMaior < raiz->maiorElemento) {
+            //ir para esquerda
+            int nivelMaior = localizarNivel(maiorElemento, raiz->esq);
+            if (nivelMaior == -1) return -1; //se a volta do empilhamento vem -1, continuamos enviando -1
+            return nivelMaior + 1;
+        } else {
+            //ir para direita
+            int nivelMaior = localizarNivel(maiorElemento, raiz->dir);
+            if (nivelMenor == -1) return -1; //se a volta do empilhamento vem -1, continuamos enviando -1
+            return nivelMaior + 1;
+        }
+    } else {
+        return -1; //chegou nas folhas e o valor nao foi localizado
+    }
+    
+    int localizarNivelMenor(int menorElemento, Arvore *raiz) {
+     if (raiz) {
+        if (nivelMenor == raiz->menorElemento) return 0;
+        if (nivelMenor < raiz->menorElemento) {
+            //ir para esquerda
+            int nivelMenor = localizarNivel(menorElemento, raiz->esq);
+            if (nivelMenor == -1) return -1; //se a volta do empilhamento vem -1, continuamos enviando -1
+            return nivelMenor + 1;
+        } else {
+            //ir para direita
+            int nivelMenor = localizarNivel(menorElemento, raiz->dir);
+            if (nivelMenor == -1) return -1; //se a volta do empilhamento vem -1, continuamos enviando -1
+            return nivelMenor + 1;
+        }
+    } else {
+        return -1; //chegou nas folhas e o valor nao foi localizado
+    }
+    
+    if(nivelMenor == nivelMaior){
+     return 1;}
+    else{
+     return 0;}
+     
+	 int VerificaFolha(int nAleatorio, Arvore *raiz) {
+	 	nAleatorio = rand() % 100;
+     if (raiz) {
+        if (Folha == raiz->nAleatorio) return 0;
+        if (Folha < raiz->nAleatorio) {
+            //ir para esquerda
+            int Folha = localizarNivel(nAleatorio, raiz->esq);
+            if (Folha == 1) return -1; //se a volta do empilhamento vem -1, continuamos enviando -1
+            return Folha + 1;
+        } else {
+            //ir para direita
+            int Folha = localizarNivel(nAleatorio, raiz->dir);
+            if (Folha == -1) return -1; //se a volta do empilhamento vem -1, continuamos enviando -1
+            return Folha -1;
+        }
+    } else {
+        return -1; //chegou nas folhas e o valor nao foi localizado
+    }
+     if (Folha == nivelMenor){
+        	return 0;
+        } else{
+        	return 1;
+        }
